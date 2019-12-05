@@ -1,27 +1,30 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {FormsModule} from "@angular/forms";
 
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { StoreModule } from '@ngrx/store';
-import { reducers, metaReducers } from '../redux';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from '../environments/environment';
+import {AppComponent} from './app.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {StoreModule} from '@ngrx/store';
+import {metaReducers, reducers} from '../redux';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {environment} from '../environments/environment';
 import {
   MatButtonModule,
   MatDialogModule,
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
+  MatTableModule,
   MatToolbarModule
 } from "@angular/material";
-import { BookmarkFormDialogComponent } from './bookmark-form-dialog/bookmark-form-dialog.component';
-import {FormsModule} from "@angular/forms";
+import {BookmarkFormDialogComponent} from './bookmark-form-dialog/bookmark-form-dialog.component';
+import {BookmarkOverviewComponent} from './bookmark-overview/bookmark-overview.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BookmarkFormDialogComponent
+    BookmarkFormDialogComponent,
+    BookmarkOverviewComponent
   ],
   entryComponents: [BookmarkFormDialogComponent],
   imports: [
@@ -41,9 +44,11 @@ import {FormsModule} from "@angular/forms";
     MatDialogModule,
     MatFormFieldModule,
     FormsModule,
-    MatInputModule
+    MatInputModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
