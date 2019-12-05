@@ -82,6 +82,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "pd-bman"
+    }
+  },
+  "defaultProject": "pd-bman",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }
