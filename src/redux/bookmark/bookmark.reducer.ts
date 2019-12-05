@@ -5,13 +5,13 @@ import * as BookmarkActions from './bookmark.actions';
 
 export const bookmarksFeatureKey = 'bookmarks';
 
-export interface State extends EntityState<Bookmark> {
+export interface BookmarkState extends EntityState<Bookmark> {
   // additional entities state properties
 }
 
 export const adapter: EntityAdapter<Bookmark> = createEntityAdapter<Bookmark>();
 
-export const initialState: State = adapter.getInitialState({
+export const initialState: BookmarkState = adapter.getInitialState({
   // additional entity state properties
 });
 
@@ -49,7 +49,7 @@ const bookmarkReducer = createReducer(
   ),
 );
 
-export function reducer(state: State | undefined, action: Action) {
+export function reducer(state: BookmarkState | undefined, action: Action) {
   return bookmarkReducer(state, action);
 }
 
