@@ -7,12 +7,23 @@ import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from '../redux';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
-import {MatButtonModule, MatIconModule, MatToolbarModule} from "@angular/material";
+import {
+  MatButtonModule,
+  MatDialogModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatInputModule,
+  MatToolbarModule
+} from "@angular/material";
+import { BookmarkFormDialogComponent } from './bookmark-form-dialog/bookmark-form-dialog.component';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    BookmarkFormDialogComponent
   ],
+  entryComponents: [BookmarkFormDialogComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -26,7 +37,11 @@ import {MatButtonModule, MatIconModule, MatToolbarModule} from "@angular/materia
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     MatToolbarModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    FormsModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]
