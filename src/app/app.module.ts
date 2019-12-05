@@ -14,6 +14,7 @@ import {
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
+  MatSortModule,
   MatTableModule,
   MatToolbarModule
 } from "@angular/material";
@@ -45,7 +46,8 @@ import {BookmarkOverviewComponent} from './bookmark-overview/bookmark-overview.c
     MatFormFieldModule,
     FormsModule,
     MatInputModule,
-    MatTableModule
+    MatTableModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]

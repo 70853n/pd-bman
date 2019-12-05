@@ -1,20 +1,24 @@
 <table
     mat-table
     [dataSource]="bookmarkDataSource$ | async"
+    matSort
+    matSortDisableClear
+    matSortActive="group"
+    matSortDirection="asc"
 >
   <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef>Bookmark Name</th>
+    <th mat-header-cell mat-sort-header *matHeaderCellDef>Bookmark Name</th>
     <td mat-cell *matCellDef="let bookmark">{{ bookmark.name }}</td>
   </ng-container>
 
   <ng-container matColumnDef="url">
-    <th mat-header-cell *matHeaderCellDef>Url</th>
+    <th mat-header-cell mat-sort-header *matHeaderCellDef>Url</th>
     <td mat-cell *matCellDef="let bookmark">
       <a href="{{ bookmark.url }}" target="_blank">{{ bookmark.url }}</a></td>
   </ng-container>
 
   <ng-container matColumnDef="group">
-    <th mat-header-cell *matHeaderCellDef>Group</th>
+    <th mat-header-cell mat-sort-header *matHeaderCellDef>Group</th>
     <td mat-cell *matCellDef="let bookmark">{{ bookmark.group }}</td>
   </ng-container>
 
