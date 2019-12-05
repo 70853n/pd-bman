@@ -1,22 +1,31 @@
 <mat-dialog-content>
   <h2>New Bookmark</h2>
   <div class="form">
-    <mat-form-field>
-      <input matInput placeholder="Name" [(ngModel)]="bookmark.name"/>
+
+    <mat-form-field hintLabel="Max 70 characters">
+      <input matInput placeholder="Name" [formControl]="name"/>
+      <mat-error *ngIf="url.invalid">Please give the bookmark a name</mat-error>
+      <mat-hint align="end">{{name.value?.length || 0}}/70</mat-hint>
     </mat-form-field>
+
     <mat-form-field>
-      <input matInput placeholder="Url" [(ngModel)]="bookmark.url"/>
+      <input matInput placeholder="Url" [formControl]="url"/>
+      <mat-error *ngIf="url.invalid">{{url.getError('urlPattern')}}</mat-error>
     </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="Group" [(ngModel)]="bookmark.group"/>
+
+    <mat-form-field hintLabel="Max 30 characters">
+      <input matInput placeholder="Group" [formControl]="group"/>
+      <mat-hint align="end">{{group.value?.length || 0}}/30</mat-hint>
     </mat-form-field>
+
   </div>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-raised-button
           color="primary"
           mat-dialog-close
-          (click)="upsertBookmark()">
+          (click)="upsertBookmark()"
+          [disabled]="name.invalid || url.invalid">
     Add Bookmark
   </button>
   <button mat-button mat-dialog-close>Cancel</button>
