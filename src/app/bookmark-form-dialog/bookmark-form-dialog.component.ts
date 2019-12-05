@@ -5,6 +5,7 @@ import {Store} from "@ngrx/store";
 import {BookmarkState} from "../../redux/bookmark/bookmark.reducer";
 import {upsertBookmark} from "../../redux/bookmark/bookmark.actions";
 import {AbstractControl, FormControl, Validators} from "@angular/forms";
+import {BookmarkPersistenceService} from "../../services/bookmark-persistence.service";
 
 @Component({
   selector: 'app-bookmark-form-dialog',
@@ -19,7 +20,8 @@ export class BookmarkFormDialogComponent {
 
   constructor(
       private store: Store<BookmarkState>,
-      @Inject(MAT_DIALOG_DATA) private _bookmark: Bookmark
+      @Inject(MAT_DIALOG_DATA) private _bookmark: Bookmark,
+      private bookmarkPersistence: BookmarkPersistenceService
   ) {
   }
 
@@ -28,7 +30,10 @@ export class BookmarkFormDialogComponent {
     this._bookmark.url = this.url.value;
     this._bookmark.group = this.group.value;
 
-    this.store.dispatch(upsertBookmark({bookmark: this.bookmark}))
+    // TODO: Use effects
+    this.bookmarkPersistence.upsertBookmark(this.bookmark);
+
+    this.store.dispatch(upsertBookmark({bookmark: this.bookmark}));
   }
 
   get bookmark(): Bookmark {

@@ -2,11 +2,10 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
-import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {StoreModule} from '@ngrx/store';
-import {metaReducers, reducers} from '../redux';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {metaReducers, reducers} from '../redux';
 import {environment} from '../environments/environment';
 import {
   MatButtonModule,
@@ -18,6 +17,7 @@ import {
   MatTableModule,
   MatToolbarModule
 } from "@angular/material";
+import {AppComponent} from './app.component';
 import {BookmarkFormDialogComponent} from './bookmark-form-dialog/bookmark-form-dialog.component';
 import {BookmarkOverviewComponent} from './bookmark-overview/bookmark-overview.component';
 

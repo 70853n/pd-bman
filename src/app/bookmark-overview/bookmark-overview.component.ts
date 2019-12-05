@@ -5,7 +5,8 @@ import {MatSort, MatTableDataSource} from "@angular/material";
 import {Observable} from "rxjs";
 import {Bookmark} from "../../redux/bookmark/bookmark.model";
 import {map} from "rxjs/operators";
-import {deleteBookmark} from "../../redux/bookmark/bookmark.actions";
+import {deleteBookmark, loadBookmarks} from "../../redux/bookmark/bookmark.actions";
+import {BookmarkPersistenceService} from "../../services/bookmark-persistence.service";
 
 @Component({
   selector: 'app-bookmark-overview',
@@ -29,13 +30,19 @@ export class BookmarkOverviewComponent implements OnInit {
       })
   );
 
-  constructor(private store: Store<BookmarkState>,) {
+  constructor(private store: Store<BookmarkState>,
+              private bookmarkPersistence: BookmarkPersistenceService) {
   }
 
   ngOnInit() {
+    // TODO: Use effects
+    this.store.dispatch(loadBookmarks({bookmarks: this.bookmarkPersistence.bookmarks}));
   }
 
   delete(id: string) {
+    // TODO: Use effects
+    this.bookmarkPersistence.deleteBookmark(id);
+
     this.store.dispatch(deleteBookmark({id}));
   }
 }
