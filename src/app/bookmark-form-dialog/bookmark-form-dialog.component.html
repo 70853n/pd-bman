@@ -1,18 +1,22 @@
 <mat-dialog-content>
+  <h2>New Bookmark</h2>
   <div class="form">
     <mat-form-field>
-      <input matInput placeholder="Name" [(ngModel)]="bookmark.name" />
+      <input matInput placeholder="Name" [(ngModel)]="bookmark.name"/>
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="Url" [(ngModel)]="bookmark.url" />
+      <input matInput placeholder="Url" [(ngModel)]="bookmark.url"/>
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="Group" [(ngModel)]="bookmark.group" />
+      <input matInput placeholder="Group" [(ngModel)]="bookmark.group"/>
     </mat-form-field>
   </div>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button mat-dialog-close (click)="upsertBookmark()">
+  <button mat-raised-button
+          color="primary"
+          mat-dialog-close
+          (click)="upsertBookmark()">
     Add Bookmark
   </button>
   <button mat-button mat-dialog-close>Cancel</button>

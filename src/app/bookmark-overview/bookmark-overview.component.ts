@@ -17,7 +17,7 @@ export class BookmarkOverviewComponent implements OnInit {
   @ViewChild(MatSort, {static: true})
   private matSort: MatSort;
 
-  displayedColumns = ["name", "url", "group", "delete"];
+  displayedColumns = ["group", "name", "url", "delete"];
 
   bookmarkDataSource$: Observable<MatTableDataSource<Bookmark>> = this.store.pipe(
       select(createFeatureSelector(bookmarksFeatureKey)),

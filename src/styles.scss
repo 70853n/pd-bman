@@ -1,4 +1,19 @@
-/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/theming';
+
+$typo-config: mat-typography-config();
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.cdk-overlay-pane {
+  width: 80vw;
+}
+
+.pd-chip {
+  @include mat-elevation($zValue:2, $opacity: 0.5);
+  padding: mat-font-size($typo-config, caption) / 2;
+  border-radius: mat-font-size($typo-config, caption);
+  font-size: mat-font-size($typo-config, caption);
+  background-color: white;
+  color: mat-color($mat-light-blue, 900);
+}
