@@ -7,6 +7,7 @@ import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './redux';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
+import {MatButtonModule, MatIconModule, MatToolbarModule} from "@angular/material";
 
 @NgModule({
   declarations: [
@@ -16,13 +17,16 @@ import { environment } from '../environments/environment';
     BrowserModule,
     BrowserAnimationsModule,
     StoreModule.forRoot(reducers, {
-      metaReducers, 
+      metaReducers,
       runtimeChecks: {
         strictStateImmutability: true,
         strictActionImmutability: true,
       }
     }),
-    !environment.production ? StoreDevtoolsModule.instrument() : []
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
