@@ -30,7 +30,7 @@ export class BookmarkFormDialogComponent {
     this._bookmark.url = this.url.value;
     this._bookmark.group = this.group.value;
 
-    // TODO: Use effects
+    // TODO: PD-BMAN-16: Use effects
     this.bookmarkPersistence.upsertBookmark(this.bookmark);
 
     this.store.dispatch(upsertBookmark({bookmark: this.bookmark}));

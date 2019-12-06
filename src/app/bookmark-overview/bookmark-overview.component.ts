@@ -35,12 +35,12 @@ export class BookmarkOverviewComponent implements OnInit {
   }
 
   ngOnInit() {
-    // TODO: Use effects
+    // TODO: PD-BMAN-16: Use effects
     this.store.dispatch(loadBookmarks({bookmarks: this.bookmarkPersistence.bookmarks}));
   }
 
   delete(id: string) {
-    // TODO: Use effects
+    // TODO: PD-BMAN-16: Use effects
     this.bookmarkPersistence.deleteBookmark(id);
 
     this.store.dispatch(deleteBookmark({id}));

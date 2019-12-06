@@ -45,10 +45,10 @@ import {BookmarkOverviewComponent} from './bookmark-overview/bookmark-overview.c
     MatDialogModule,
     MatFormFieldModule,
     FormsModule,
+    ReactiveFormsModule,
     MatInputModule,
     MatTableModule,
-    MatSortModule,
-    ReactiveFormsModule
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]
