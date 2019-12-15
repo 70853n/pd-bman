@@ -4,6 +4,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {StoreModule} from '@ngrx/store';
+import {EffectsModule} from '@ngrx/effects';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {metaReducers, reducers} from '../redux';
 import {environment} from '../environments/environment';
@@ -20,6 +21,7 @@ import {
 import {AppComponent} from './app.component';
 import {BookmarkFormDialogComponent} from './bookmark-form-dialog/bookmark-form-dialog.component';
 import {BookmarkOverviewComponent} from './bookmark-overview/bookmark-overview.component';
+import {BookmarkEffects} from '../redux/bookmark/bookmark.effects';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,7 @@ import {BookmarkOverviewComponent} from './bookmark-overview/bookmark-overview.c
         strictActionImmutability: true,
       }
     }),
+    EffectsModule.forRoot([BookmarkEffects]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     MatToolbarModule,
     MatIconModule,

@@ -6,7 +6,6 @@ import {Observable} from "rxjs";
 import {Bookmark} from "../../redux/bookmark/bookmark.model";
 import {map} from "rxjs/operators";
 import {deleteBookmark, loadBookmarks} from "../../redux/bookmark/bookmark.actions";
-import {BookmarkPersistenceService} from "../../services/bookmark-persistence.service";
 
 @Component({
   selector: 'app-bookmark-overview',
@@ -18,9 +17,8 @@ export class BookmarkOverviewComponent implements OnInit {
   @ViewChild(MatSort, {static: true})
   private matSort: MatSort;
 
-  displayedColumns = ["group", "name", "url", "delete"];
-
-  bookmarkDataSource$: Observable<MatTableDataSource<Bookmark>> = this.store.pipe(
+  readonly displayedColumns = ["group", "name", "url", "delete"];
+  readonly bookmarkDataSource$: Observable<MatTableDataSource<Bookmark>> = this.store.pipe(
       select(createFeatureSelector(bookmarksFeatureKey)),
       select(selectAll),
       map((bookmarks: Bookmark[]) => {
@@ -30,19 +28,14 @@ export class BookmarkOverviewComponent implements OnInit {
       })
   );
 
-  constructor(private store: Store<BookmarkState>,
-              private bookmarkPersistence: BookmarkPersistenceService) {
+  constructor(private store: Store<BookmarkState>) {
   }
 
   ngOnInit() {
-    // TODO: PD-BMAN-16: Use effects
-    this.store.dispatch(loadBookmarks({bookmarks: this.bookmarkPersistence.bookmarks}));
+    this.store.dispatch(loadBookmarks());
   }
 
   delete(id: string) {
-    // TODO: PD-BMAN-16: Use effects
-    this.bookmarkPersistence.deleteBookmark(id);
-
     this.store.dispatch(deleteBookmark({id}));
   }
 }
