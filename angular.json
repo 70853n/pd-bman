@@ -68,7 +68,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "pd-bman:build"
+            "browserTarget": "pd-bman:build",
+            "proxyConfig": "mock-backend/proxy-config.json"
           },
           "configurations": {
             "production": {

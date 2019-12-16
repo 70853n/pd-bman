@@ -1,0 +1,7 @@
+{
+  "/apiMock": {
+    "target": "http://localhost:3000",
+    "pathRewrite": {"^/apiMock": ""},
+    "secure": false
+  }
+}

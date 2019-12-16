@@ -1,0 +1,46 @@
+{
+  "bookmarks": [
+    {
+      "id": "0aec37b4-103f-4dec-b806-fe51f47d9957",
+      "name": "Google",
+      "url": "https://google.com/",
+      "group": "Search Engines"
+    },
+    {
+      "id": "b5c75504-48d0-4b2a-a8b2-1e3a643c9c8c",
+      "name": "DuckDuckGo",
+      "url": "https://duckduckgo.com/",
+      "group": "Search Engines"
+    },
+    {
+      "id": "a6587143-0aa9-4c7b-bb54-a8c3b2c02706",
+      "name": "Architectural Decision Records",
+      "url": "https://adr.github.io/",
+      "group": "Software Engineering"
+    },
+    {
+      "id": "89561ca5-331b-4cae-b32c-f26f16c1cca8",
+      "name": "Prettier",
+      "url": "https://prettier.io/",
+      "group": "Coding Tools"
+    },
+    {
+      "id": "18406640-f53c-419d-80b1-7476f43fb071",
+      "name": "SOLID Principles",
+      "url": "https://www.baeldung.com/solid-principles",
+      "group": "Software Engineering"
+    },
+    {
+      "id": "39a76ad4-b5d4-4b23-9458-73a246a1380c",
+      "name": "Mastering the Snatch",
+      "url": "https://www.t-nation.com/training/mastering-the-snatch",
+      "group": "Weightlifting"
+    },
+    {
+      "id": "004b1745-da37-4d82-bea5-e9040e093986",
+      "name": "NgRx Docs",
+      "url": "https://ngrx.io/docs",
+      "group": "Frameworks"
+    }
+  ]
+}

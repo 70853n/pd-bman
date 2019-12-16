@@ -22,6 +22,7 @@ import {AppComponent} from './app.component';
 import {BookmarkFormDialogComponent} from './bookmark-form-dialog/bookmark-form-dialog.component';
 import {BookmarkOverviewComponent} from './bookmark-overview/bookmark-overview.component';
 import {BookmarkEffects} from '../redux/bookmark/bookmark.effects';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import {BookmarkEffects} from '../redux/bookmark/bookmark.effects';
     }),
     EffectsModule.forRoot([BookmarkEffects]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
+    HttpClientModule,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,

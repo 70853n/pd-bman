@@ -1,17 +1,19 @@
 import {Injectable} from '@angular/core';
 import {Bookmark} from "../../redux/bookmark/bookmark.model";
-import {bookmarksFeatureKey} from "../../redux/bookmark/bookmark.reducer";
-import {Observable, of, throwError} from "rxjs";
+import {Observable, throwError} from "rxjs";
 import {DeleteBookmarkError, GetBookmarksError, SaveBookmarkError} from "./bookmark-persistence.errors";
-import {CustomErrorBase} from "../../lib/CustomErrorBase";
-import {empty} from "rxjs/internal/Observer";
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {environment} from "../../environments/environment";
+import {catchError} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
 })
 export class BookmarkPersistenceService {
 
-  constructor() {
+  private readonly backendUrl = environment.backendUrl;
+
+  constructor(private readonly http: HttpClient) {
   }
 
   /**
@@ -21,19 +23,13 @@ export class BookmarkPersistenceService {
    *          or terminating with a {@link GetBookmarksError}
    */
   get bookmarks(): Observable<Bookmark[]> {
-    return tryOperation(
-        () => {
-          const bookmarksById: { string: Bookmark } = JSON.parse(localStorage.getItem(bookmarksFeatureKey));
-
-          return of(bookmarksById
-              ? Object.values(bookmarksById)
-              : []
-          );
-        },
-        () => {
-          return new GetBookmarksError();
-        }
-    );
+    return this.http.get<Bookmark[]>(`${this.backendUrl}/bookmarks`)
+        .pipe(
+            catchError((error: HttpErrorResponse) => {
+              logForDevelopment(error);
+              return throwError(new GetBookmarksError())
+            })
+        );
   }
 
   /**
@@ -45,19 +41,13 @@ export class BookmarkPersistenceService {
    *          or one terminating with a {@link SaveBookmarkError}
    */
   saveBookmark(bookmark: Bookmark): Observable<any> {
-    return tryOperation(
-        () => {
-          const bookmarksById = JSON.parse(localStorage.getItem(bookmarksFeatureKey)) || {};
-
-          bookmarksById[bookmark.id] = bookmark;
-          localStorage.setItem(bookmarksFeatureKey, JSON.stringify(bookmarksById));
-
-          return of(empty);
-        },
-        () => {
-          return new SaveBookmarkError(bookmark);
-        }
-    );
+    return this.http.post<Bookmark>(`${this.backendUrl}/bookmarks`, bookmark)
+        .pipe(
+            catchError((error: HttpErrorResponse) => {
+              logForDevelopment(error);
+              return throwError(new SaveBookmarkError(bookmark))
+            })
+        );
   }
 
   /**
@@ -68,27 +58,21 @@ export class BookmarkPersistenceService {
    *          or terminating with a {@link DeleteBookmarkError}
    */
   deleteBookmark(id: string): Observable<Bookmark> {
-    return tryOperation(
-        () => {
-          const bookmarksById = JSON.parse(localStorage.getItem(bookmarksFeatureKey)) || {};
-          const deletedBookmark = bookmarksById[id];
-
-          delete bookmarksById[id];
-          localStorage.setItem(bookmarksFeatureKey, JSON.stringify(bookmarksById));
-
-          return of(deletedBookmark);
-        },
-        () => new DeleteBookmarkError(id)
-    );
+    return this.http.delete<Bookmark>(`${this.backendUrl}/bookmarks/${id}`)
+        .pipe(
+            catchError((error: HttpErrorResponse) => {
+              logForDevelopment(error);
+              return throwError(new DeleteBookmarkError(id));
+            })
+        );
   }
 }
 
-function tryOperation(operation: () => Observable<any>, errorFactory: () => CustomErrorBase): Observable<any> {
-  try {
-    return operation();
-  } catch (e) {
-    // TODO: Implement production-safe logging
-    console.log(e);
-    return throwError(errorFactory());
+/*
+ * TODO: Write dedicated logging service
+ */
+function logForDevelopment(error: HttpErrorResponse) {
+  if (!environment.production) {
+    console.error(error);
   }
 }
