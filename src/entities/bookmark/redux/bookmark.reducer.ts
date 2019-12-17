@@ -1,11 +1,7 @@
 import {Action, createReducer, on} from '@ngrx/store';
 import {createEntityAdapter, EntityAdapter, EntityState} from '@ngrx/entity';
 import {Bookmark} from './bookmark.model';
-import {
-  DeleteBookmarkError,
-  GetBookmarksError,
-  SaveBookmarkError
-} from "../../services/bookmark-persistence/bookmark-persistence.errors";
+import {DeleteBookmarkError, GetBookmarksError, SaveBookmarkError} from "../bookmark-persistence.errors";
 import {
   deleteBookmark,
   deleteBookmarkFailure,
@@ -32,7 +28,7 @@ export const initialState: BookmarkState = adapter.getInitialState({
   error: null
 });
 
-const bookmarkReducer = createReducer(
+const reducer = createReducer(
     initialState,
     /*
      * load effect chain
@@ -75,8 +71,8 @@ const bookmarkReducer = createReducer(
     ),
 );
 
-export function reducer(state: BookmarkState | undefined, action: Action) {
-  return bookmarkReducer(state, action);
+export function bookmarkReducer(state: BookmarkState | undefined, action: Action) {
+  return reducer(state, action);
 }
 
 export const {selectAll} = adapter.getSelectors();

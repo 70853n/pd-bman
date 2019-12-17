@@ -1,14 +1,12 @@
 import {Injectable} from '@angular/core';
-import {Bookmark} from "../../redux/bookmark/bookmark.model";
+import {Bookmark} from "./redux/bookmark.model";
 import {Observable, throwError} from "rxjs";
 import {DeleteBookmarkError, GetBookmarksError, SaveBookmarkError} from "./bookmark-persistence.errors";
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {catchError} from "rxjs/operators";
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class BookmarkPersistenceService {
 
   private readonly backendUrl = environment.backendUrl;

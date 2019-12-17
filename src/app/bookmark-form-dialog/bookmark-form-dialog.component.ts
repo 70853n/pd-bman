@@ -1,9 +1,9 @@
 import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA} from "@angular/material";
-import {Bookmark} from "../../redux/bookmark/bookmark.model";
+import {Bookmark} from "../../entities/bookmark/redux/bookmark.model";
 import {Store} from "@ngrx/store";
-import {BookmarkState} from "../../redux/bookmark/bookmark.reducer";
-import {upsertBookmark} from "../../redux/bookmark/bookmark.actions";
+import {BookmarkState} from "../../entities/bookmark/redux/bookmark.reducer";
+import {upsertBookmark} from "../../entities/bookmark/redux/bookmark.actions";
 import {AbstractControl, FormControl, Validators} from "@angular/forms";
 
 @Component({

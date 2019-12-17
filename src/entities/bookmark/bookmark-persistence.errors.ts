@@ -1,4 +1,4 @@
-import {Bookmark} from "../../redux/bookmark/bookmark.model";
+import {Bookmark} from "./redux/bookmark.model";
 import {CustomErrorBase} from "../../lib/CustomErrorBase";
 
 export class GetBookmarksError extends CustomErrorBase {

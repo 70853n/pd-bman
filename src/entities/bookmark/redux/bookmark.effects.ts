@@ -11,7 +11,7 @@ import {
   upsertBookmarkFailure,
   upsertBookmarkSuccess
 } from "./bookmark.actions";
-import {BookmarkPersistenceService} from "../../services/bookmark-persistence/bookmark-persistence.service";
+import {BookmarkPersistenceService} from "../bookmark-persistence.service";
 import {catchError, map, mergeMap} from "rxjs/operators";
 import {of} from "rxjs";
 

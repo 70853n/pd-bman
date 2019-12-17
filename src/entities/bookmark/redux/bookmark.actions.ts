@@ -1,7 +1,7 @@
 import {createAction, props} from '@ngrx/store';
 
 import {Bookmark} from './bookmark.model';
-import {GetBookmarksError} from "../../services/bookmark-persistence/bookmark-persistence.errors";
+import {GetBookmarksError} from "../bookmark-persistence.errors";
 
 /*
  * load effect chain

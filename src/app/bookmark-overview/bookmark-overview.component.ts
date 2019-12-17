@@ -1,11 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {bookmarksFeatureKey, BookmarkState, selectAll} from "../../redux/bookmark/bookmark.reducer";
+import {bookmarksFeatureKey, BookmarkState, selectAll} from "../../entities/bookmark/redux/bookmark.reducer";
 import {createFeatureSelector, select, Store} from "@ngrx/store";
 import {MatSort, MatTableDataSource} from "@angular/material";
 import {Observable} from "rxjs";
-import {Bookmark} from "../../redux/bookmark/bookmark.model";
+import {Bookmark} from "../../entities/bookmark/redux/bookmark.model";
 import {map} from "rxjs/operators";
-import {deleteBookmark, loadBookmarks} from "../../redux/bookmark/bookmark.actions";
+import {deleteBookmark, loadBookmarks} from "../../entities/bookmark/redux/bookmark.actions";
 
 @Component({
   selector: 'app-bookmark-overview',

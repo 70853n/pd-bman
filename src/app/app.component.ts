@@ -2,7 +2,7 @@ import uuid from 'uuid/v4';
 import {Component} from '@angular/core';
 import {MatDialog} from "@angular/material";
 import {BookmarkFormDialogComponent} from "./bookmark-form-dialog/bookmark-form-dialog.component";
-import {Bookmark} from "../redux/bookmark/bookmark.model";
+import {Bookmark} from "../entities/bookmark/redux/bookmark.model";
 
 @Component({
   selector: 'app-root',
