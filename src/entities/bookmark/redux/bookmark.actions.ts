@@ -40,17 +40,22 @@ export const upsertBookmarkFailure = createAction(
 /*
  * delete effect chain
  */
-export const deleteBookmark = createAction(
+export const synchronisedDeleteBookmark = createAction(
     '[Bookmark/API] Delete Bookmark',
     props<{ bookmark: Bookmark }>()
 );
 
-export const deleteBookmarkSuccess = createAction(
+export const synchronisedDeleteBookmarkSuccess = createAction(
     '[Bookmark/API] Delete Bookmark Success',
     props<{ bookmark: Bookmark }>()
 );
 
-export const deleteBookmarkFailure = createAction(
+export const synchronisedDeleteBookmarkFailure = createAction(
     '[Bookmark/API] Delete Bookmark Failure',
     props<{ error: Error }>()
+);
+
+export const deleteBookmark = createAction(
+    '[Bookmark/API] Delete Bookmark',
+    props<{ bookmark: Bookmark }>()
 );

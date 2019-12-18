@@ -5,7 +5,7 @@ import {MatSort, MatTableDataSource} from "@angular/material";
 import {Observable} from "rxjs";
 import {Bookmark} from "../../entities/bookmark/redux/bookmark.model";
 import {map} from "rxjs/operators";
-import {deleteBookmark, loadBookmarks} from "../../entities/bookmark/redux/bookmark.actions";
+import {loadBookmarks, synchronisedDeleteBookmark} from "../../entities/bookmark/redux/bookmark.actions";
 
 @Component({
   selector: 'app-bookmark-overview',
@@ -36,6 +36,6 @@ export class BookmarkOverviewComponent implements OnInit {
   }
 
   delete(bookmark: Bookmark) {
-    this.store.dispatch(deleteBookmark({bookmark}));
+    this.store.dispatch(synchronisedDeleteBookmark({bookmark}));
   }
 }

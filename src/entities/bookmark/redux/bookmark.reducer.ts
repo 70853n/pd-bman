@@ -4,11 +4,12 @@ import {Bookmark} from './bookmark.model';
 import {DeleteBookmarkError, GetBookmarksError, SaveBookmarkError} from "../bookmark-persistence.errors";
 import {
   deleteBookmark,
-  deleteBookmarkFailure,
-  deleteBookmarkSuccess,
   loadBookmarks,
   loadBookmarksFailure,
   loadBookmarksSuccess,
+  synchronisedDeleteBookmark,
+  synchronisedDeleteBookmarkFailure,
+  synchronisedDeleteBookmarkSuccess,
   upsertBookmark,
   upsertBookmarkFailure,
   upsertBookmarkSuccess
@@ -60,13 +61,13 @@ const reducer = createReducer(
     /*
      * delete effect chain
      */
-    on(deleteBookmark,
+    on(deleteBookmark, synchronisedDeleteBookmark,
         (state, action) => bookmarkAdapter.removeOne(action.bookmark.id, state)
     ),
-    on(deleteBookmarkSuccess,
-        (state, action) => state
+    on(synchronisedDeleteBookmarkSuccess,
+        (state) => state
     ),
-    on(deleteBookmarkFailure,
+    on(synchronisedDeleteBookmarkFailure,
         (state, action) => ({...state, error: action.error})
     ),
 );

@@ -2,17 +2,18 @@ import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {
   deleteBookmark,
-  deleteBookmarkFailure,
-  deleteBookmarkSuccess,
   loadBookmarks,
   loadBookmarksFailure,
   loadBookmarksSuccess,
+  synchronisedDeleteBookmark,
+  synchronisedDeleteBookmarkFailure,
+  synchronisedDeleteBookmarkSuccess,
   upsertBookmark,
   upsertBookmarkFailure,
   upsertBookmarkSuccess
 } from "./bookmark.actions";
 import {BookmarkPersistenceService} from "../bookmark-persistence.service";
-import {catchError, first, map, mergeMap, tap} from "rxjs/operators";
+import {catchError, map, mergeMap, tap} from "rxjs/operators";
 import {of} from "rxjs";
 import {MatSnackBar} from "@angular/material";
 import {BookmarkState} from "./bookmark.reducer";
@@ -45,13 +46,19 @@ export class BookmarkEffects {
           .saveBookmark(action.bookmark)
           .pipe(
               map(() => upsertBookmarkSuccess()),
-              catchError(error => of(upsertBookmarkFailure({error})))
+              catchError(error => {
+                this.snackBar.open(`A technical error occured while saving '${action.bookmark.name}'`, 'Retry')
+                    .onAction()
+                    .subscribe(() => this.store.dispatch(upsertBookmark({bookmark: action.bookmark})));
+
+                return of(upsertBookmarkFailure({error}), deleteBookmark({bookmark: action.bookmark}));
+              })
           )
       )
   ));
 
   deleteBookmark$ = createEffect(() => this.actions$.pipe(
-      ofType(deleteBookmark),
+      ofType(synchronisedDeleteBookmark),
       mergeMap((action) => this.bookmarkPersistence
           .deleteBookmark(action.bookmark)
           .pipe(
@@ -61,8 +68,8 @@ export class BookmarkEffects {
                     .onAction()
                     .subscribe(() => this.store.dispatch(upsertBookmark({bookmark: action.bookmark})));
               }),
-              map(() => deleteBookmarkSuccess({bookmark: action.bookmark})),
-              catchError((error) => of(deleteBookmarkFailure({error})))
+              map(() => synchronisedDeleteBookmarkSuccess({bookmark: action.bookmark})),
+              catchError((error) => of(synchronisedDeleteBookmarkFailure({error})))
           )
       )
   ));
