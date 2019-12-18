@@ -1,4 +1,4 @@
-import {Action, createReducer, on} from '@ngrx/store';
+import {Action, createReducer, createSelector, on} from '@ngrx/store';
 import {createEntityAdapter, EntityAdapter, EntityState} from '@ngrx/entity';
 import {Bookmark} from './bookmark.model';
 import {DeleteBookmarkError, GetBookmarksError, SaveBookmarkError} from "../bookmark-persistence.errors";
@@ -21,9 +21,9 @@ export interface BookmarkState extends EntityState<Bookmark> {
   error: GetBookmarksError | SaveBookmarkError | DeleteBookmarkError
 }
 
-export const adapter: EntityAdapter<Bookmark> = createEntityAdapter<Bookmark>();
+export const bookmarkAdapter: EntityAdapter<Bookmark> = createEntityAdapter<Bookmark>();
 
-export const initialState: BookmarkState = adapter.getInitialState({
+export const initialState: BookmarkState = bookmarkAdapter.getInitialState({
   loading: false,
   error: null
 });
@@ -37,7 +37,7 @@ const reducer = createReducer(
         (state) => ({...state, loading: true})
     ),
     on(loadBookmarksSuccess,
-        (state, action) => adapter.addAll(
+        (state, action) => bookmarkAdapter.addAll(
             action.bookmarks,
             {...state, loading: false, error: null}
         )
@@ -49,7 +49,7 @@ const reducer = createReducer(
      * upsert effect chain
      */
     on(upsertBookmark,
-        (state, action) => adapter.upsertOne(action.bookmark, state)
+        (state, action) => bookmarkAdapter.upsertOne(action.bookmark, state)
     ),
     on(upsertBookmarkSuccess,
         (state) => state
@@ -61,7 +61,7 @@ const reducer = createReducer(
      * delete effect chain
      */
     on(deleteBookmark,
-        (state, action) => adapter.removeOne(action.id, state)
+        (state, action) => bookmarkAdapter.removeOne(action.bookmark.id, state)
     ),
     on(deleteBookmarkSuccess,
         (state, action) => state
@@ -75,4 +75,4 @@ export function bookmarkReducer(state: BookmarkState | undefined, action: Action
   return reducer(state, action);
 }
 
-export const {selectAll} = adapter.getSelectors();
+export const {selectAll} = bookmarkAdapter.getSelectors();

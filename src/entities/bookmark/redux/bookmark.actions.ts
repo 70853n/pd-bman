@@ -42,7 +42,7 @@ export const upsertBookmarkFailure = createAction(
  */
 export const deleteBookmark = createAction(
     '[Bookmark/API] Delete Bookmark',
-    props<{ id: string }>()
+    props<{ bookmark: Bookmark }>()
 );
 
 export const deleteBookmarkSuccess = createAction(

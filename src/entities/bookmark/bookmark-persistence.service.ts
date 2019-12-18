@@ -55,12 +55,12 @@ export class BookmarkPersistenceService {
    * @return  an Observable emitting the deleted Bookmark
    *          or terminating with a {@link DeleteBookmarkError}
    */
-  deleteBookmark(id: string): Observable<Bookmark> {
-    return this.http.delete<Bookmark>(`${this.backendUrl}/bookmarks/${id}`)
+  deleteBookmark(bookmark: Bookmark): Observable<any> {
+    return this.http.delete(`${this.backendUrl}/bookmarks/${bookmark.id}`)
         .pipe(
             catchError((error: HttpErrorResponse) => {
               logForDevelopment(error);
-              return throwError(new DeleteBookmarkError(id));
+              return throwError(new DeleteBookmarkError(bookmark.id));
             })
         );
   }

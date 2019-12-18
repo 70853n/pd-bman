@@ -12,15 +12,20 @@ import {
   upsertBookmarkSuccess
 } from "./bookmark.actions";
 import {BookmarkPersistenceService} from "../bookmark-persistence.service";
-import {catchError, map, mergeMap} from "rxjs/operators";
+import {catchError, first, map, mergeMap, tap} from "rxjs/operators";
 import {of} from "rxjs";
+import {MatSnackBar} from "@angular/material";
+import {BookmarkState} from "./bookmark.reducer";
+import {Store} from "@ngrx/store";
 
 @Injectable()
 export class BookmarkEffects {
 
   constructor(
+      private store: Store<BookmarkState>,
       private actions$: Actions,
-      private bookmarkPersistence: BookmarkPersistenceService
+      private bookmarkPersistence: BookmarkPersistenceService,
+      private snackBar: MatSnackBar
   ) {
   }
 
@@ -48,9 +53,15 @@ export class BookmarkEffects {
   deleteBookmark$ = createEffect(() => this.actions$.pipe(
       ofType(deleteBookmark),
       mergeMap((action) => this.bookmarkPersistence
-          .deleteBookmark(action.id)
+          .deleteBookmark(action.bookmark)
           .pipe(
-              map((bookmark) => deleteBookmarkSuccess({bookmark})),
+              tap(() => {
+                this.snackBar
+                    .open(`Successfully deleted bookmark '${action.bookmark.name}'`, 'Undo', {duration: 2500})
+                    .onAction()
+                    .subscribe(() => this.store.dispatch(upsertBookmark({bookmark: action.bookmark})));
+              }),
+              map(() => deleteBookmarkSuccess({bookmark: action.bookmark})),
               catchError((error) => of(deleteBookmarkFailure({error})))
           )
       )

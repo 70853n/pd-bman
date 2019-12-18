@@ -35,7 +35,7 @@ export class BookmarkOverviewComponent implements OnInit {
     this.store.dispatch(loadBookmarks());
   }
 
-  delete(id: string) {
-    this.store.dispatch(deleteBookmark({id}));
+  delete(bookmark: Bookmark) {
+    this.store.dispatch(deleteBookmark({bookmark}));
   }
 }
