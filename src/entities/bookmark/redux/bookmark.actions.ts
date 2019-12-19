@@ -16,8 +16,7 @@ export const loadBookmarksSuccess = createAction(
 );
 
 export const loadBookmarksFailure = createAction(
-    '[Bookmark/API] Load Bookmarks Failure',
-    props<{ error: GetBookmarksError }>()
+    '[Bookmark/API] Load Bookmarks Failure'
 );
 
 /*
@@ -33,8 +32,7 @@ export const upsertBookmarkSuccess = createAction(
 );
 
 export const upsertBookmarkFailure = createAction(
-    '[Bookmark/API] Upsert Bookmark Failure',
-    props<{ error: Error }>()
+    '[Bookmark/API] Upsert Bookmark Failure'
 );
 
 /*
@@ -51,8 +49,7 @@ export const synchronisedDeleteBookmarkSuccess = createAction(
 );
 
 export const synchronisedDeleteBookmarkFailure = createAction(
-    '[Bookmark/API] Delete Bookmark Failure',
-    props<{ error: Error }>()
+    '[Bookmark/API] Delete Bookmark Failure'
 );
 
 export const deleteBookmark = createAction(

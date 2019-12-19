@@ -18,16 +18,11 @@ import {
 export const bookmarksFeatureKey = 'bookmarks';
 
 export interface BookmarkState extends EntityState<Bookmark> {
-  loading: boolean
-  error: GetBookmarksError | SaveBookmarkError | DeleteBookmarkError
 }
 
 export const bookmarkAdapter: EntityAdapter<Bookmark> = createEntityAdapter<Bookmark>();
 
-export const initialState: BookmarkState = bookmarkAdapter.getInitialState({
-  loading: false,
-  error: null
-});
+export const initialState: BookmarkState = bookmarkAdapter.getInitialState({});
 
 const reducer = createReducer(
     initialState,
@@ -35,16 +30,13 @@ const reducer = createReducer(
      * load effect chain
      */
     on(loadBookmarks,
-        (state) => ({...state, loading: true})
+        (state) => ({...state})
     ),
     on(loadBookmarksSuccess,
-        (state, action) => bookmarkAdapter.addAll(
-            action.bookmarks,
-            {...state, loading: false, error: null}
-        )
+        (state, action) => bookmarkAdapter.addAll(action.bookmarks, {...state})
     ),
     on(loadBookmarksFailure,
-        (state, action) => ({...state, loading: false, error: action.error})
+        (state) => ({...state})
     ),
     /*
      * upsert effect chain
@@ -56,7 +48,7 @@ const reducer = createReducer(
         (state) => state
     ),
     on(upsertBookmarkFailure,
-        (state, action) => ({...state, error: action.error})
+        (state) => ({...state})
     ),
     /*
      * delete effect chain
@@ -68,7 +60,7 @@ const reducer = createReducer(
         (state) => state
     ),
     on(synchronisedDeleteBookmarkFailure,
-        (state, action) => ({...state, error: action.error})
+        (state) => ({...state})
     ),
 );
 

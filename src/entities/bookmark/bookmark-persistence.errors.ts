@@ -12,7 +12,7 @@ export class SaveBookmarkError extends CustomErrorBase {
 
 
   constructor(bookmark: Bookmark) {
-    super('Failed to save bookmark.');
+    super(`A technical error occured while saving '${bookmark.name}'`);
     this.bookmark = bookmark;
   }
 }
@@ -21,7 +21,7 @@ export class DeleteBookmarkError extends CustomErrorBase {
   readonly id: string;
 
   constructor(id: string) {
-    super('Failed to delete bookmark.');
+    super(`Failed to delete bookmark with id ${id}`);
     this.id = id;
   }
 }

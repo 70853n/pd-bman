@@ -35,7 +35,7 @@ export class BookmarkEffects {
       mergeMap(() => this.bookmarkPersistence.bookmarks
           .pipe(
               map((bookmarks) => loadBookmarksSuccess({bookmarks})),
-              catchError((error) => of(loadBookmarksFailure({error})))
+              catchError(() => of(loadBookmarksFailure()))
           )
       )
   ));
@@ -47,11 +47,11 @@ export class BookmarkEffects {
           .pipe(
               map(() => upsertBookmarkSuccess()),
               catchError(error => {
-                this.snackBar.open(`A technical error occured while saving '${action.bookmark.name}'`, 'Retry')
+                this.snackBar.open(error.message, 'Retry')
                     .onAction()
                     .subscribe(() => this.store.dispatch(upsertBookmark({bookmark: action.bookmark})));
 
-                return of(upsertBookmarkFailure({error}), deleteBookmark({bookmark: action.bookmark}));
+                return of(upsertBookmarkFailure(), deleteBookmark({bookmark: action.bookmark}));
               })
           )
       )
@@ -69,7 +69,7 @@ export class BookmarkEffects {
                     .subscribe(() => this.store.dispatch(upsertBookmark({bookmark: action.bookmark})));
               }),
               map(() => synchronisedDeleteBookmarkSuccess({bookmark: action.bookmark})),
-              catchError((error) => of(synchronisedDeleteBookmarkFailure({error})))
+              catchError(() => of(synchronisedDeleteBookmarkFailure()))
           )
       )
   ));
